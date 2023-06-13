@@ -51,5 +51,8 @@ The playbook specifies that it will be executed on the "localhost" machine and r
 A DevOps engineer might use this playbook to quickly set up a Jenkins environment for continuous integration and continuous delivery (CI/CD) pipelines on their local machine. By running Jenkins inside a container, they can easily manage and isolate the Jenkins environment, control its dependencies, and ensure consistent setup across different environments. This playbook automates the installation of Docker, starts the Docker service, and launches the Jenkins container with the necessary configurations, saving time and effort for the engineer.
 
 # install-docker.yml
+![image](https://github.com/joshking1/ansible-projects-yemi/assets/88409463/42d4ab48-5e7d-4066-826b-6cb4421453de)
+
+
 
 

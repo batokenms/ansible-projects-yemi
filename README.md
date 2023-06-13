@@ -1,5 +1,5 @@
 # Notes for patch-management.yml 
-
+=========================================================================================================================================================================================
 ---
 - name: Update, Upgrade, Remove Old Plugins, and Clean Cache
   hosts: aws
@@ -28,7 +28,7 @@
     - name: Clean package cache
       command: package-cleanup --oldkernels --count=1 -y
       changed_when: false
-      
+=========================================================================================================================================================================================     
 The playbook above is a set of instructions for a DevOps engineer to perform specific tasks on a group of servers hosted on AWS. 
 
 Let us break down what each task does and why a DevOps engineer might use this playbook:

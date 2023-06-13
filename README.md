@@ -99,3 +99,7 @@ Idempotent operations: Ansible playbooks are designed to be idempotent, meaning 
 Collaboration and version control: Ansible playbooks are written in YAML format, which is human-readable and easy to understand. By using this playbook, DevOps engineers can collaborate on infrastructure automation, share code with team members, and version control the playbook to track changes over time.
 
 Overall, the playbook you provided can be used by a DevOps engineer to automate the creation and permission setting of a file, ensuring consistent configurations and facilitating infrastructure provisioning in an AWS environment.
+
+# create-directory.yml 
+
+

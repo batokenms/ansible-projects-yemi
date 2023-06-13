@@ -20,3 +20,7 @@ The playbook begins by specifying that it will be executed on hosts with the lab
 "Clean package cache" task: This task executes the "package-cleanup" command with specific options to remove old kernels and limit the number of retained kernels to one. This is done to manage disk space efficiently by removing outdated kernel versions, which are typically kept as backups. The "changed_when: false" line again indicates that the task will not be considered as "changed" even if it executes successfully.
 
 A DevOps engineer might use this playbook to automate routine maintenance tasks across multiple AWS servers. By using automation, they can ensure that all servers in their infrastructure are consistently updated, have unnecessary packages removed, and maintain optimal performance and security. It helps streamline the maintenance process, reduces human error, and allows the engineer to focus on more critical tasks.
+
+# jenkins-container.yml 
+
+

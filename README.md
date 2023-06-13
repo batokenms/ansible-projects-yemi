@@ -1,4 +1,7 @@
 # Notes for patch-management.yml 
+
+![image](https://github.com/joshking1/ansible-projects-yemi/assets/88409463/40ea029f-49ad-40a7-bfe1-05f905e38447)
+
     
 The playbook above is a set of instructions for a DevOps engineer to perform specific tasks on a group of servers hosted on AWS. 
 

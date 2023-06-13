@@ -23,6 +23,7 @@ A DevOps engineer might use this playbook to automate routine maintenance tasks 
 
 # jenkins-container.yml 
 
+![image](https://github.com/joshking1/ansible-projects-yemi/assets/88409463/772554d2-0856-47d7-8df3-383df0420274)
 
 
 This playbook is a set of instructions for a DevOps engineer to run a Jenkins container on a local machine. 

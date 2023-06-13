@@ -71,6 +71,9 @@ By installing these dependencies, the servers will have the necessary components
 
 "Install Docker" task: This task uses the "yum" package manager to install Docker on the servers. Docker allows applications to be packaged into containers, which can be easily deployed and scaled. By installing Docker, the servers will have the ability to run and manage containers.
 
+# Create-file.yml 
+
+
 "Start Docker service" task: This task uses the "service" module to start the Docker service and enable it to start automatically on system boot. Starting the Docker service ensures that Docker is up and running, allowing the servers to run containers.
 
 A DevOps engineer might use this playbook to quickly set up the necessary tools and environment for software development and deployment on AWS servers. By installing Git, the engineer can manage and version control their code effectively. Installing Docker allows the engineer to leverage containerization for application deployment, making it easier to package, distribute, and scale their applications. By automating the installation and setup of these tools, the engineer can ensure consistency and efficiency across multiple servers, saving time and effort.

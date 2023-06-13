@@ -1,0 +1,53 @@
+---
+- name: Install Packages
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Install wget, curl, and git
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - wget
+        - curl
+        - git
+
+    - name: Install yum-utils and shadow-utils
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - yum-utils
+        - shadow-utils
+
+    - name: Add HashiCorp repository
+      shell: >
+        sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+
+    - name: Install Terraform
+      yum:
+        name: terraform
+        state: present
+
+    - name: Install Maven
+      yum:
+        name: maven
+        state: present
+
+    - name: Install pip
+      yum:
+        name: python3-pip
+        state: present
+
+    - name: Upgrade pip
+      pip:
+        name: pip
+        executable: pip3
+        state: latest
+
+    - name: Install Ansible
+      pip:
+        name: ansible
+        executable: pip3
+        state: present

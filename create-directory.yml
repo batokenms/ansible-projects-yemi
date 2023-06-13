@@ -1,0 +1,11 @@
+---
+- name: Create and set permissions for folder
+  hosts: aws
+  become: yes
+
+  tasks:
+    - name: Create folder
+      file:
+        path: "josh-1"
+        state: directory
+        mode: "0777"

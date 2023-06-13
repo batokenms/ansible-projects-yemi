@@ -1,0 +1,28 @@
+---
+- name: Update, Upgrade, Remove Old Plugins, and Clean Cache
+  hosts: aws
+  become: yes
+
+  tasks:
+    - name: Update package cache
+      command: yum update -y
+      changed_when: false
+
+    - name: Upgrade all packages
+      yum:
+        name: '*'
+        state: latest
+
+    - name: Remove old plugins
+      yum:
+        name: your_old_plugin
+        state: absent
+      ignore_errors: yes
+
+    - name: Clean yum cache
+      command: yum clean all
+      changed_when: false
+
+    - name: Clean package cache
+      command: package-cleanup --oldkernels --count=1 -y
+      changed_when: false

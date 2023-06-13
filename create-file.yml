@@ -1,0 +1,11 @@
+---
+- name: Create and set permissions for file
+  hosts: aws
+  become: yes
+
+  tasks:
+    - name: Create file
+      file:
+        path: "josh"
+        state: touch
+        mode: "0777"

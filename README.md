@@ -128,6 +128,7 @@ In summary, the provided playbook can be used by a DevOps engineer to automate t
 
 ![image](https://github.com/joshking1/ansible-projects-yemi/assets/88409463/d1b739ec-590a-497c-bf23-3522ef03c784)
 
+![image](https://github.com/joshking1/ansible-projects-yemi/assets/88409463/437d9c86-25f6-4da6-a7a2-a1972ca95ff0)
 
 A DevOps engineer might want to use the playbook you provided for several reasons:
 

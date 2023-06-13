@@ -126,6 +126,8 @@ In summary, the provided playbook can be used by a DevOps engineer to automate t
 
 # configure-packages.yml
 
+![image](https://github.com/joshking1/ansible-projects-yemi/assets/88409463/d1b739ec-590a-497c-bf23-3522ef03c784)
+
 
 A DevOps engineer might want to use the playbook you provided for several reasons:
 

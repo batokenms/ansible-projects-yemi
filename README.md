@@ -102,6 +102,7 @@ Overall, the playbook you provided can be used by a DevOps engineer to automate 
 
 # create-directory.yml 
 
+![image](https://github.com/joshking1/ansible-projects-yemi/assets/88409463/1562184e-8f4e-4a5c-826a-eb284455d1fb)
 
 A DevOps engineer might want to use the playbook you provided for several reasons:
 

@@ -78,6 +78,7 @@ A DevOps engineer might use this playbook to quickly set up the necessary tools 
 
 # Create-file.yml 
 
+![image](https://github.com/joshking1/ansible-projects-yemi/assets/88409463/1d33354e-7d8e-4fdd-afce-b2f80cf533b5)
 
 The playbook you provided is written in Ansible, which is a popular automation tool used in DevOps practices. 
 

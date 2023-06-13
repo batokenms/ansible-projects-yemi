@@ -51,8 +51,28 @@ The playbook specifies that it will be executed on the "localhost" machine and r
 A DevOps engineer might use this playbook to quickly set up a Jenkins environment for continuous integration and continuous delivery (CI/CD) pipelines on their local machine. By running Jenkins inside a container, they can easily manage and isolate the Jenkins environment, control its dependencies, and ensure consistent setup across different environments. This playbook automates the installation of Docker, starts the Docker service, and launches the Jenkins container with the necessary configurations, saving time and effort for the engineer.
 
 # install-docker.yml
+
 ![image](https://github.com/joshking1/ansible-projects-yemi/assets/88409463/42d4ab48-5e7d-4066-826b-6cb4421453de)
 
+This playbook is a set of instructions for a DevOps engineer to install Git and Docker, and start the Docker service on a group of servers hosted on AWS. 
 
+Let us break down what each task does and why a DevOps engineer might use this playbook:
+
+The playbook begins by specifying that it will be executed on hosts with the label "aws" and that the execution should have elevated privileges (using "become: yes").
+
+"Install Git" task: This task uses the "yum" package manager to install Git on the servers. Git is a version control system that is widely used in software development to manage source code. By installing Git, the servers will have the necessary tools to clone, track, and collaborate on code repositories.
+
+"Install Docker dependencies" task: This task uses the "yum" package manager to install dependencies required by Docker. Docker is a platform that allows applications to be packaged and run in isolated environments called containers. The dependencies being installed are:
+
+"yum-utils": A collection of utilities that extend the functionality of yum package manager.
+"device-mapper-persistent-data": Provides the device mapper storage driver for Docker, which manages the mapping between containers and storage devices.
+"lvm2": Logical Volume Manager 2, a tool for managing logical volumes, which is used by Docker to manage container storage.
+By installing these dependencies, the servers will have the necessary components to run Docker containers.
+
+"Install Docker" task: This task uses the "yum" package manager to install Docker on the servers. Docker allows applications to be packaged into containers, which can be easily deployed and scaled. By installing Docker, the servers will have the ability to run and manage containers.
+
+"Start Docker service" task: This task uses the "service" module to start the Docker service and enable it to start automatically on system boot. Starting the Docker service ensures that Docker is up and running, allowing the servers to run containers.
+
+A DevOps engineer might use this playbook to quickly set up the necessary tools and environment for software development and deployment on AWS servers. By installing Git, the engineer can manage and version control their code effectively. Installing Docker allows the engineer to leverage containerization for application deployment, making it easier to package, distribute, and scale their applications. By automating the installation and setup of these tools, the engineer can ensure consistency and efficiency across multiple servers, saving time and effort.
 
 

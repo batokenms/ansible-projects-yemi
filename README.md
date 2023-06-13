@@ -103,3 +103,23 @@ Overall, the playbook you provided can be used by a DevOps engineer to automate 
 # create-directory.yml 
 
 
+A DevOps engineer might want to use the playbook you provided for several reasons:
+
+Infrastructure provisioning: Creating folders and setting permissions on them is a common task when provisioning infrastructure. 
+
+By using this playbook, a DevOps engineer can automate the process of creating folders and ensuring the correct permissions are set consistently across multiple hosts in an AWS environment.
+
+Configuration management: In a DevOps environment, maintaining consistent configurations across different servers or instances is crucial. 
+
+By using this playbook, a DevOps engineer can ensure that the specified folder is present and has the desired permissions, enforcing a desired configuration state.
+
+Idempotent operations: Ansible playbooks are designed to be idempotent, meaning that running the playbook multiple times should have the same result as running it once. 
+
+In the case of this playbook, if the folder "josh-1" already exists, the playbook will not recreate it or change its permissions unless necessary. This allows DevOps engineers to safely run the playbook on a regular basis without worrying about unintended side effects.
+
+Collaboration and version control: Ansible playbooks are written in YAML format, making them human-readable and easy to understand. By using this playbook, DevOps engineers can collaborate on infrastructure automation, share code with team members, and version control the playbook to track changes over time.
+
+Consistency and standardization: By using a playbook to create and set permissions for folders, DevOps engineers can ensure that all required folders are created and configured uniformly across different environments. This promotes consistency and standardization in infrastructure setups, reducing the chance of configuration errors or discrepancies.
+
+In summary, the provided playbook can be used by a DevOps engineer to automate the creation and permission setting of folders, ensuring consistent configurations and facilitating infrastructure provisioning in an AWS environment.
+

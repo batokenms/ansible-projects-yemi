@@ -1,0 +1,76 @@
+---
+- name: Configure Jenkins Server
+  hosts: aws
+  become: yes  # Run tasks with root privileges
+
+  tasks:
+    - name: Check if the script is running as root
+      assert:
+        that: "ansible_user_id == '0'"
+        msg: "This playbook must be run as root."
+      tags: always  # Ensure this task always runs
+
+    - name: Perform system updates (patch management)
+      apt:
+        name: "*"
+        state: latest
+        update_cache: yes
+      when: "'Ubuntu' in ansible_distribution"
+
+    - name: Install Docker if not installed
+      apt:
+        name: docker.io
+        state: present
+      when: "'Docker' not in ansible_facts['ansible_system']"
+
+    - name: Start and enable Docker service
+      systemd:
+        name: docker
+        enabled: yes
+        state: started
+      when: "'Docker' in ansible_facts['ansible_system']"
+
+    - name: Check the number of CPUs
+      fail:
+        msg: "Error: The system must have at least 2 CPUs to run Jenkins."
+      when: ansible_processor_count < 2
+
+    - name: Open required ports using ufw
+      ufw:
+        rule: allow
+        port: "{{ item }}"
+      with_items:
+        - 8080/tcp
+        - 50000/tcp
+      when: "'ufw' in ansible_facts['ansible_services']"
+
+    - name: Exclude port 22 from UFW rules for SSH
+      ufw:
+        rule: allow
+        port: 22/tcp
+      when: "'ufw' in ansible_facts['ansible_services']"
+
+    - name: Enable the firewall
+      command: ufw --force enable
+      when: "'ufw' in ansible_facts['ansible_services']"
+
+    - name: Run Jenkins Server as a container
+      command: >
+        docker run
+        -u root
+        --rm
+        -d
+        -p 8080:8080
+        -p 50000:50000
+        --name jenkins
+        -v /var/run/docker.sock:/var/run/docker.sock
+        -v $(which docker):/usr/bin/docker
+        -v /home/jenkins_home:/var/jenkins_home
+        jenkins/jenkins
+      environment:
+        DOCKER_CLI_ABBREV: "1"  # Prevents errors with Docker in non-interactive mode
+      when: "'Docker' in ansible_facts['ansible_system']"
+
+    - name: Display completion message
+      debug:
+        msg: "Jenkins container is now running."

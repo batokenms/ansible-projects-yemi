@@ -1,0 +1,32 @@
+---
+- name: Perform System Configuration Backup
+  hosts: aws  # Assumes the playbook runs locally on the system
+
+  tasks:
+    - name: Define backup variables
+      set_fact:
+        backup_dir: "/root/back_up/back_up"
+        date: "{{ ansible_date_time.date + ansible_date_time.hour + ansible_date_time.minute + ansible_date_time.second }}"
+        log_file: "/root/back_up/backup.log"
+
+    - name: Create backup directory with a timestamp
+      file:
+        path: "{{ backup_dir }}/backup_{{ date }}"
+        state: directory
+      register: backup_dir_result
+
+    - name: Perform backup using rsync
+      command: rsync -av /etc/ "{{ backup_dir }}/backup_{{ date }}/"
+      changed_when: true  # Consider the task successful if rsync reports changes
+      ignore_errors: yes  # Ignore errors from rsync
+      register: rsync_result
+
+    - name: Log backup status
+      lineinfile:
+        dest: "{{ log_file }}"
+        line: "{{ ansible_date_time.iso8601 }}: Backup {{ 'successful' if rsync_result.rc == 0 else 'failed' }}"
+      delegate_to: localhost  # Write to the log file locally
+
+    - name: Display message for scheduling
+      debug:
+        msg: "You can schedule this playbook to run at regular intervals using cron jobs to automate your backups. For example, to run it daily at 2 AM, add the following line to your crontab: 0 2 * * * ansible-playbook /path/to/your/playbook.yml"

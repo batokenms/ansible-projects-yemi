@@ -1,0 +1,34 @@
+---
+- name: Backup MySQL database
+  hosts: aws
+  become: yes  # Run tasks with root privileges
+  vars:
+    backup_dir: "/root/backup"
+    database_name: "josh"
+    backup_name: "backup"
+    mysql_user: "your_mysql_user"
+    mysql_password: "your_mysql_password"
+
+  tasks:
+    - name: Create backup directory if it doesn't exist
+      file:
+        path: "{{ backup_dir }}"
+        state: directory
+
+    - name: Backup the MySQL database
+      command: >
+        mysqldump -u {{ mysql_user }} -p{{ mysql_password }} {{ database_name }}
+        > {{ backup_dir }}/{{ backup_name }}.sql
+      register: backup_result
+      environment:
+        MYSQL_PWD: "{{ mysql_password }}"
+      ignore_errors: yes  # Ignore errors if the backup fails
+
+    - name: Check if the backup was successful
+      fail:
+        msg: "MySQL database backup failed."
+      when: backup_result.rc != 0
+
+    - name: Compress the backup file
+      command: "gzip {{ backup_dir }}/{{ backup_name }}.sql"
+      when: backup_result.rc == 0  # Only compress if backup was successful

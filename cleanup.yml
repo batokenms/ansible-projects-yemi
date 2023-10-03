@@ -1,0 +1,31 @@
+---
+- name: Perform System Updates and Docker Cleanup
+  hosts: aws  # Assumes the playbook runs locally on the system
+
+  tasks:
+    - name: Check if the script is running as root
+      assert:
+        that: "ansible_user_id == '0'"
+        msg: "This playbook must be run as root."
+      tags: always  # Ensure this task always runs
+
+    - name: Perform system updates (patch management)
+      apt:
+        name: "*"
+        state: latest
+        update_cache: yes
+      when: "'Ubuntu' in ansible_distribution"
+
+    - name: Stop and remove all Docker containers
+      shell: "docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)"
+      ignore_errors: yes  # Ignore errors if there are no containers to remove
+      when: "'Docker' in ansible_facts['ansible_system']"
+
+    - name: Remove all Docker images
+      shell: "docker rmi $(docker images -q)"
+      ignore_errors: yes  # Ignore errors if there are no images to remove
+      when: "'Docker' in ansible_facts['ansible_system']"
+
+    - name: Display completion message
+      debug:
+        msg: "Patch management and Docker cleanup completed."

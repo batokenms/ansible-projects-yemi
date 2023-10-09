@@ -27,3 +27,12 @@
         - { name: "Disk", value: "{{ disk_utilization.stdout }}" }
         - { name: "RAM", value: "{{ ram_utilization.stdout }}" }
       when: "{{ item.value | int }} >= 80"
+
+# 
+This playbook performs the following tasks:
+
+# Checks CPU utilization using the "top" command.
+# Checks disk utilization using the "df" command.
+# Checks RAM utilization using the "free" command.
+# Reports high resource utilization (CPU, disk, and RAM) if 80% or above.
+# You can run this playbook using the ansible-playbook command and specify the inventory file with your server's information.

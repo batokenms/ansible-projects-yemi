@@ -1,0 +1,29 @@
+---
+- name: Check Resource Utilization
+  hosts: your_server
+  gather_facts: yes
+
+  tasks:
+    - name: Check CPU Utilization
+      command: top -bn1 | grep "Cpu(s)" | awk '{print $2 + $4}'
+      register: cpu_utilization
+      changed_when: false
+
+    - name: Check Disk Utilization
+      command: df -h | awk '$5 ~ /%/{print}'
+      register: disk_utilization
+      changed_when: false
+
+    - name: Check RAM Utilization
+      command: free -m | awk '/Mem/{print int($3/$2*100)}'
+      register: ram_utilization
+      changed_when: false
+
+    - name: Report High Resource Utilization
+      debug:
+        msg: "High {{ item.name }} utilization: {{ item.value }}%"
+      with_items:
+        - { name: "CPU", value: "{{ cpu_utilization.stdout }}" }
+        - { name: "Disk", value: "{{ disk_utilization.stdout }}" }
+        - { name: "RAM", value: "{{ ram_utilization.stdout }}" }
+      when: "{{ item.value | int }} >= 80"

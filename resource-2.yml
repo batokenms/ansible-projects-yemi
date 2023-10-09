@@ -1,0 +1,32 @@
+---
+- name: Check Resource Utilization
+  hosts: your_server
+  gather_facts: yes
+
+  tasks:
+    - name: Gather CPU Facts
+      ansible.builtin.register_facts:
+        ansible_facts:
+          cpu_usage: "{{ ansible_processor | regex_replace('^.+ ([0-9]+)\\.[0-9]+ .*', '\\1') }}"
+      changed_when: false
+
+    - name: Gather Disk Facts
+      ansible.builtin.register_facts:
+        ansible_facts:
+          disk_usage: "{{ ansible_mounts[0].percent }}"
+      changed_when: false
+
+    - name: Gather RAM Facts
+      ansible.builtin.register_facts:
+        ansible_facts:
+          ram_usage: "{{ ansible_memory_mb.real.percent }}"
+      changed_when: false
+
+    - name: Report High Resource Utilization
+      debug:
+        msg: "High {{ item.name }} utilization: {{ item.value }}%"
+      with_items:
+        - { name: "CPU", value: "{{ ansible_facts.cpu_usage }}" }
+        - { name: "Disk", value: "{{ ansible_facts.disk_usage }}" }
+        - { name: "RAM", value: "{{ ansible_facts.ram_usage }}" }
+      when: "{{ item.value | int }} >= 80"

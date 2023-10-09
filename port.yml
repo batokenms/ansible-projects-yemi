@@ -1,0 +1,29 @@
+---
+- name: Ensure Specific Ports are Open
+  hosts: your_target_server
+  become: yes
+
+  tasks:
+    - name: Ensure Port 80 is Open
+      ansible.builtin.firewalld:
+        port: 80/tcp
+        state: enabled
+      when: not ansible.builtin.firewalld.info.port['80/tcp'].active
+
+    - name: Ensure Port 443 is Open
+      ansible.builtin.firewalld:
+        port: 443/tcp
+        state: enabled
+      when: not ansible.builtin.firewalld.info.port['443/tcp'].active
+
+    - name: Ensure Port 8080 is Open
+      ansible.builtin.firewalld:
+        port: 8080/tcp
+        state: enabled
+      when: not ansible.builtin.firewalld.info.port['8080/tcp'].active
+
+  handlers:
+    - name: Reload Firewalld
+      ansible.builtin.service:
+        name: firewalld
+        state: reloaded

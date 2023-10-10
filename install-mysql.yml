@@ -1,27 +1,16 @@
 ---
-- name: Install MySQL on Amazon Linux
+- name: Install MySQL on Amazon Linux 2
   hosts: aws
   become: yes  # Run tasks with root privileges
   tasks:
-    - name: Check if MySQL is installed
-      command: "mysql --version"
-      ignore_errors: yes  # Ignore errors if MySQL is not installed
-      register: mysql_check
-
-    - name: Install MySQL if not installed
-      yum:
-        name: mysql-server
-        state: present
-      when: mysql_check.rc != 0  # Only install if MySQL is not found
+    - name: Install MySQL
+      ansible.builtin.command: yum install -y mariadb-server
+      ignore_errors: yes  # Ignore errors if MySQL is already installed
+      register: mysql_install_result
 
     - name: Start MySQL service
-      service:
-        name: mysqld
-        state: started
-      when: mysql_check.rc != 0  # Only start if MySQL is not found
+      ansible.builtin.command: systemctl start mariadb
+      ignore_errors: yes  # Ignore errors if the service is already running
 
     - name: Enable MySQL service on boot
-      service:
-        name: mysqld
-        enabled: yes
-      when: mysql_check.rc != 0  # Only enable if MySQL is not found
+      ansible.builtin.command: systemctl enable mariadb

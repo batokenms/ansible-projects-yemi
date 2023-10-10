@@ -2,28 +2,23 @@
 - name: Ensure Specific Ports are Open
   hosts: your_target_server
   become: yes
+  gather_facts: yes
 
   tasks:
+    - name: Install iptables
+      ansible.builtin.package:
+        name: iptables
+        state: present
+      when: ansible_distribution == "Amazon"  # Check for Amazon Linux 2 distribution
+
     - name: Ensure Port 80 is Open
-      ansible.builtin.firewalld:
-        port: 80/tcp
-        state: enabled
-      when: not ansible.builtin.firewalld.info.port['80/tcp'].active
+      ansible.builtin.shell: iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+      when: ansible_distribution == "Amazon"  # Check for Amazon Linux 2 distribution
 
     - name: Ensure Port 443 is Open
-      ansible.builtin.firewalld:
-        port: 443/tcp
-        state: enabled
-      when: not ansible.builtin.firewalld.info.port['443/tcp'].active
+      ansible.builtin.shell: iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+      when: ansible_distribution == "Amazon"  # Check for Amazon Linux 2 distribution
 
     - name: Ensure Port 8080 is Open
-      ansible.builtin.firewalld:
-        port: 8080/tcp
-        state: enabled
-      when: not ansible.builtin.firewalld.info.port['8080/tcp'].active
-
-  handlers:
-    - name: Reload Firewalld
-      ansible.builtin.service:
-        name: firewalld
-        state: reloaded
+      ansible.builtin.shell: iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+      when: ansible_distribution == "Amazon"  # Check for Amazon Linux 2 distribution

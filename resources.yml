@@ -1,7 +1,8 @@
 ---
 - name: Check Resource Utilization
-  hosts: your_server
+  hosts: aws
   gather_facts: yes
+  become: yes
 
   tasks:
     - name: Check CPU Utilization

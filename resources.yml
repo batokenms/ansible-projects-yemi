@@ -29,8 +29,7 @@
         - { name: "RAM", value: "{{ ram_utilization.stdout }}" }
       when: "{{ item.value | int }} >= 80"
 
-# 
-This playbook performs the following tasks:
+# This playbook performs the following tasks:
 
 # Checks CPU utilization using the "top" command.
 # Checks disk utilization using the "df" command.

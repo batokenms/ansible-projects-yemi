@@ -6,17 +6,17 @@
 
   tasks:
     - name: Check CPU Utilization
-      command: top -bn1 | grep "Cpu(s)" | awk '{print $2 + $4}'
+      shell: top -bn1 | grep "Cpu(s)" | awk '{print $2 + $4}'
       register: cpu_utilization
       changed_when: false
 
     - name: Check Disk Utilization
-      command: df -h | awk '$5 ~ /%/{print}'
+      shell: df -h | awk '$5 ~ /%/{print}'
       register: disk_utilization
       changed_when: false
 
     - name: Check RAM Utilization
-      command: free -m | awk '/Mem/{print int($3/$2*100)}'
+      shell: free -m | awk '/Mem/{print int($3/$2*100)}'
       register: ram_utilization
       changed_when: false
 

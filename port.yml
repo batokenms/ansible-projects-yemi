@@ -1,6 +1,6 @@
 ---
 - name: Ensure Specific Ports are Open
-  hosts: your_target_server
+  hosts: aws
   become: yes
   gather_facts: yes
 

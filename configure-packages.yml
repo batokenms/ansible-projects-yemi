@@ -1,6 +1,6 @@
 ---
 - name: Install Packages
-  hosts: localhost
+  hosts: aws
   become: yes
 
   tasks:

@@ -1,6 +1,6 @@
 ---
 - name: Run Jenkins container
-  hosts: localhost
+  hosts: aws
   become: yes
 
   tasks:
